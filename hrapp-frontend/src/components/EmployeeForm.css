@@ -1,0 +1,21 @@
+/* ... diğer stiller ... */
+.form-buttons {
+    display: flex; /* Butonları yan yana getir */
+    gap: 10px; /* Aralarına boşluk koy */
+  }
+  
+  .cancel-button {
+      padding: 10px 15px;
+      background-color: #6c757d; /* Gri */
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+  }
+  .cancel-button:hover {
+      background-color: #5a6268;
+  }
+   .cancel-button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+  }

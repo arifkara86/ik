@@ -1,0 +1,42 @@
+# docker-compose.yml (Healthcheck ile Güncellendi)
+# version: '3.8' # Bu satırı silebiliriz (uyarı veriyordu)
+
+services:
+  # Uygulamamızın API servisi
+  hrapp-api:
+    image: hrapp-api:v1
+    container_name: hrapp-api-container
+    build:
+      context: .
+      dockerfile: src/HrApp.EmployeeManagement.Api/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ConnectionStrings__EmployeeManagementDb=Host=postgres-db;Port=5432;Database=ik_db;Username=ik_usr;Password=ik_passwd
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      # --- DEĞİŞİKLİK: Sağlık kontrolünü bekle ---
+      postgres-db:
+        condition: service_healthy # Sadece başlamasını değil, sağlıklı olmasını bekle
+
+  # PostgreSQL veritabanı servisi
+  postgres-db:
+    image: postgres:15
+    container_name: hrapp-postgres-db-container
+    environment:
+      - POSTGRES_DB=ik_db
+      - POSTGRES_USER=ik_usr
+      - POSTGRES_PASSWORD=ik_passwd
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # --- DEĞİŞİKLİK: Sağlık Kontrolü Eklendi ---
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ik_usr -d ik_db"] # Veritabanına bağlanıp hazır mı diye kontrol et
+      interval: 10s # Kontrol aralığı
+      timeout: 5s   # Zaman aşımı süresi
+      retries: 5    # Başarısız olursa deneme sayısı
+
+volumes:
+  postgres_data:

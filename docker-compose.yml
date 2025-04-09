@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  web:
+    image: node:lts-bullseye-slim
+    working_dir: /app
+    volumes:
+      - /Users/arifkara/Desktop/ik/app:/app
+    ports:
+      - '3000:3000'
+    command: sh -c "npm install && npm start"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_USER: ik_usr
+      POSTGRES_PASSWORD: ik_passwd
+      POSTGRES_DB: ik_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

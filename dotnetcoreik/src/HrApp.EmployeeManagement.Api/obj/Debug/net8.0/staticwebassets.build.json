@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "g2otqa4cDbm5DAufLvG0DKb79VG16W1GaoDNgvz5lOM=",
+  "Source": "HrApp.EmployeeManagement.Api",
+  "BasePath": "_content/HrApp.EmployeeManagement.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
