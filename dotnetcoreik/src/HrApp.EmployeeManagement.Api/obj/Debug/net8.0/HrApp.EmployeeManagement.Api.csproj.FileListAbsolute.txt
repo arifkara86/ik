@@ -132,6 +132,7 @@
 /Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Api/obj/Debug/net8.0/HrApp.EmployeeManagement.Api.csproj.CoreCompileInputs.cache
 /Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Api/obj/Debug/net8.0/HrApp.EmployeeManagement.Api.MvcApplicationPartsAssemblyInfo.cs
 /Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Api/obj/Debug/net8.0/HrApp.EmployeeManagement.Api.MvcApplicationPartsAssemblyInfo.cache
+/Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Api/obj/Debug/net8.0/HrApp.EmployeeManagement.Api.sourcelink.json
 /Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Api/obj/Debug/net8.0/staticwebassets.build.json
 /Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Api/obj/Debug/net8.0/staticwebassets.development.json
 /Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Api/obj/Debug/net8.0/staticwebassets/msbuild.HrApp.EmployeeManagement.Api.Microsoft.AspNetCore.StaticWebAssets.props

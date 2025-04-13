@@ -1,40 +1,76 @@
-import React, { useState, useCallback, createContext, useContext } from 'react';
+// src/App.tsx
+import React, { useState, useCallback } from 'react';
 import EmployeeList from './components/EmployeeList';
-import EmployeeForm from './components/EmployeeForm';
-import './App.css';
-import Snackbar from '@mui/material/Snackbar';
-import Alert, { AlertColor } from '@mui/material/Alert';
+import EmployeeForm from './components/EmployeeForm'; // Form import ediliyor mu?
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import './App.css'; // Opsiyonel
 
-interface Employee { /*...*/ }
-interface SnackbarContextType { showSnackbar: (message: string, severity?: AlertColor) => void; }
-const SnackbarContext = createContext<SnackbarContextType | null>(null);
-export const useSnackbar = () => { /*...*/ };
+// Employee interface
+interface Employee {
+    id: string; firstName: string; lastName: string; email: string;
+    dateOfBirth: string | Date | null; hireDate: string | Date | null; position?: string;
+    departmentId?: string; departmentName?: string; salary: number;
+}
 
-function App() { /* State ve Fonksiyonlar önceki gibi */
-    const [listKey, setListKey] = useState<number>(0);
+function App() {
+    console.log("App component rendering or re-rendering");
+    const [listKey, setListKey] = useState<number>(Date.now());
     const [employeeToEdit, setEmployeeToEdit] = useState<Employee | null>(null);
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState('');
-    const [snackbarSeverity, setSnackbarSeverity] = useState<AlertColor>('success');
-    const showSnackbar = useCallback((message: string, severity: AlertColor = 'success') => { /*...*/ }, []);
-    const handleSnackbarClose = (event?: React.SyntheticEvent | Event, reason?: string) => { /*...*/ };
-    const refreshList = useCallback(() => { /*...*/ }, [employeeToEdit, showSnackbar]);
-    const handleEditEmployee = useCallback((employee: Employee) => { /*...*/ }, []);
-    const handleCancelEdit = useCallback(() => { setEmployeeToEdit(null); }, []);
+
+    const refreshListAndClearForm = useCallback(() => {
+        console.log("App: refreshListAndClearForm triggered");
+        setEmployeeToEdit(null);
+        setListKey(Date.now());
+    }, []);
+
+    const handleEditEmployee = useCallback((employee: Employee) => {
+        console.log("App: handleEditEmployee triggered for:", employee.id);
+        setEmployeeToEdit(employee);
+    }, []);
+
+    const handleCancelEdit = useCallback(() => {
+        console.log("App: handleCancelEdit triggered");
+        setEmployeeToEdit(null);
+    }, []);
 
     return (
-        <SnackbarContext.Provider value={{ showSnackbar }}>
-            <div className="App">
-                <header className="App-header"> <h1>HR Management Portal</h1> </header>
+        <>
+            <CssBaseline />
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                <Box sx={{ textAlign: 'center', mb: 4 }}>
+                    <Typography variant="h4" component="h1" gutterBottom>
+                        HR Management Portal
+                    </Typography>
+                </Box>
+
                 <main>
-                    <EmployeeForm /* Props önceki gibi */ />
-                    <EmployeeList /* Props önceki gibi */ />
+                    {/* --- FORM RENDER KISMI --- */}
+                    {/* Bu kısım kesinlikle olmalı */}
+                    {console.log("App: Rendering EmployeeForm")}
+                    <EmployeeForm
+                        key={employeeToEdit ? `edit-${employeeToEdit.id}` : 'add-new-employee-form'} // Key'i daha belirgin yapalım
+                        onFormSubmitSuccess={refreshListAndClearForm}
+                        initialData={employeeToEdit}
+                        onCancelEdit={handleCancelEdit}
+                    />
+                    {/* --- FORM RENDER KISMI BİTİŞ --- */}
+
+
+                    <Box sx={{ mt: 5 }}>
+                        {console.log("App: Rendering EmployeeList")}
+                        <EmployeeList
+                            refreshKey={listKey}
+                            onEditEmployee={handleEditEmployee}
+                            onActionComplete={refreshListAndClearForm}
+                        />
+                    </Box>
                 </main>
-                <Snackbar /* Props önceki gibi */ >
-                    <Alert /* Props önceki gibi */ >{snackbarMessage}</Alert>
-                </Snackbar>
-            </div>
-        </SnackbarContext.Provider>
+            </Container>
+        </>
     );
 }
+
 export default App;

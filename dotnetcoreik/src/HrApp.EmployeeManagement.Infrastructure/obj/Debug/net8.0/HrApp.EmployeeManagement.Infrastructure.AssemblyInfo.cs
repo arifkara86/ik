@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HrApp.EmployeeManagement.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+225b6050a25273f6332d15ff9414aebc74604b4f")]
 [assembly: System.Reflection.AssemblyProductAttribute("HrApp.EmployeeManagement.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HrApp.EmployeeManagement.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

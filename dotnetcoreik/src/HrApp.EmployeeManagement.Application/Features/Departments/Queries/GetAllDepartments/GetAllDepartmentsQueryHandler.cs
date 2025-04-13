@@ -4,30 +4,33 @@ using HrApp.EmployeeManagement.Application.Features.Departments.Dtos;
 using HrApp.EmployeeManagement.Application.Persistence;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System.Linq; // Select için
 
 namespace HrApp.EmployeeManagement.Application.Features.Departments.Queries.GetAllDepartments;
 
 public class GetAllDepartmentsQueryHandler : IRequestHandler<GetAllDepartmentsQuery, IReadOnlyList<DepartmentDto>>
 {
-    private readonly IDepartmentRepository _departmentRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly ILogger<GetAllDepartmentsQueryHandler> _logger;
 
-    public GetAllDepartmentsQueryHandler(IDepartmentRepository departmentRepository, IMapper mapper, ILogger<GetAllDepartmentsQueryHandler> logger)
+    public GetAllDepartmentsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper, ILogger<GetAllDepartmentsQueryHandler> logger)
     {
-        _departmentRepository = departmentRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
-         _logger = logger;
-   }
+        _logger = logger;
+    }
 
     public async Task<IReadOnlyList<DepartmentDto>> Handle(GetAllDepartmentsQuery request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Retrieving all departments.");
-        var departments = await _departmentRepository.GetAllAsync(cancellationToken);
+        _logger.LogInformation("GetAllDepartmentsQueryHandler: Retrieving all departments from repository.");
+        // Doğrudan repository'den tüm departmanları çek
+        var departments = await _unitOfWork.DepartmentRepository.GetAllAsync(cancellationToken); // İlişkisiz, basit GetAll yeterli
+        _logger.LogInformation("GetAllDepartmentsQueryHandler: Retrieved {Count} departments from repository.", departments.Count);
 
-        // Entity listesini DTO listesine map et
+        // AutoMapper ile DTO listesine çevir
         var departmentDtos = _mapper.Map<IReadOnlyList<DepartmentDto>>(departments);
-         _logger.LogInformation("Successfully retrieved {DepartmentCount} departments.", departmentDtos.Count);
+        _logger.LogInformation("GetAllDepartmentsQueryHandler: Mapped {Count} departments to DTOs.", departmentDtos.Count);
 
         return departmentDtos;
     }

@@ -11,6 +11,7 @@
 /Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Infrastructure/obj/Debug/net8.0/HrApp.EmployeeManagement.Infrastructure.AssemblyInfoInputs.cache
 /Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Infrastructure/obj/Debug/net8.0/HrApp.EmployeeManagement.Infrastructure.AssemblyInfo.cs
 /Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Infrastructure/obj/Debug/net8.0/HrApp.EmployeeManagement.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Infrastructure/obj/Debug/net8.0/HrApp.EmployeeManagement.Infrastructure.sourcelink.json
 /Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Infrastructure/obj/Debug/net8.0/HrApp.Em.70FF789C.Up2Date
 /Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Infrastructure/obj/Debug/net8.0/HrApp.EmployeeManagement.Infrastructure.dll
 /Users/arifkara/Desktop/ik/dotnetcoreik/src/HrApp.EmployeeManagement.Infrastructure/obj/Debug/net8.0/refint/HrApp.EmployeeManagement.Infrastructure.dll

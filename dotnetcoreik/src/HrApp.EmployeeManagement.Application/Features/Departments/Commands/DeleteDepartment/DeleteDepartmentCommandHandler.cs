@@ -9,21 +9,21 @@ namespace HrApp.EmployeeManagement.Application.Features.Departments.Commands.Del
 
 public class DeleteDepartmentCommandHandler : IRequestHandler<DeleteDepartmentCommand>
 {
-    private readonly IUnitOfWork _unitOfWork; // DEĞİŞTİ
+    private readonly IUnitOfWork _unitOfWork; // EKLENDİ
     private readonly ILogger<DeleteDepartmentCommandHandler> _logger;
 
     public DeleteDepartmentCommandHandler(
-        IUnitOfWork unitOfWork, // DEĞİŞTİ
+        IUnitOfWork unitOfWork, // EKLENDİ
         ILogger<DeleteDepartmentCommandHandler> logger)
     {
-        _unitOfWork = unitOfWork; // DEĞİŞTİ
+        _unitOfWork = unitOfWork; // EKLENDİ
         _logger = logger;
     }
 
     public async Task Handle(DeleteDepartmentCommand request, CancellationToken cancellationToken)
     {
          _logger.LogInformation("Attempting to delete department with ID: {DepartmentId}", request.Id);
-        var departmentToDelete = await _unitOfWork.DepartmentRepository.GetByIdAsync(request.Id, cancellationToken); // UoW Kullanıldı
+        var departmentToDelete = await _unitOfWork.DepartmentRepository.GetByIdAsync(request.Id, cancellationToken);
 
         if (departmentToDelete == null)
         {
@@ -31,11 +31,13 @@ public class DeleteDepartmentCommandHandler : IRequestHandler<DeleteDepartmentCo
             throw new NotFoundException(nameof(Department), request.Id);
         }
 
-        // Repository'deki silme öncesi kontrol hala geçerli olabilir (opsiyonel)
-        _unitOfWork.DepartmentRepository.Delete(departmentToDelete); // UoW Kullanıldı
+        // Repository'deki kontrol (çalışan var mı vs.) hala geçerli olabilir.
+        _unitOfWork.DepartmentRepository.Delete(departmentToDelete);
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken); // UoW Kullanıldı
+        // --- DEĞİŞİKLİK: SaveChangesAsync eklendi ---
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
         _logger.LogInformation("Database changes saved for deleted department {DepartmentId}.", request.Id);
+        // --- Bitiş: DEĞİŞİKLİK ---
 
         _logger.LogInformation("Department with ID: {DepartmentId} successfully deleted.", request.Id);
         // return Unit.Value;
